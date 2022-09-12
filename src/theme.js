@@ -3,7 +3,10 @@ const theme = {
       textPrimary: '#24292e',
       textSecondary: 'white',
       primary: '#0366d6',
-      appBarBackground: '#24292e'
+      appBarBackground: '#24292e',
+      mainBackground: '#e1e4e8',
+      repositoryItemBackground: 'white',
+      languageTagBackground: '#0366d6'
     },
     fontSizes: {
       body: 14,
