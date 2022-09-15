@@ -1,15 +1,22 @@
-import { View, Pressable } from 'react-native';
-import Text from './Text';
+import { View, StyleSheet } from "react-native";
+import Text from "./Text";
+import { Link } from "react-router-native";
 
+const styles = StyleSheet.create({
+  flexItem: {
+    flexGrow: 0,
+    padding: 20,
+  },
+});
 
-const AppBarTab = ({ style, name }) => {
+const AppBarTab = ({ name, route }) => {
   return (
-    <View style={style}>
-        <Pressable>
-					<Text color='textSecondary' fontSize='subheading' fontWeight='bold'>
-						{name}
-					</Text>
-				</Pressable>
+    <View style={styles.flexItem}>
+      <Link to={route}>
+        <Text color="textSecondary" fontSize="subheading" fontWeight="bold">
+          {name}
+        </Text>
+      </Link>
     </View>
   );
 };
