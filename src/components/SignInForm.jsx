@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
   },
   textInput: {
     margin: 10,
-    borderColor: theme.colors.secondary,
     borderWidth: 1,
     borderRadius: 3,
     padding: 15,

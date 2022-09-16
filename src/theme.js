@@ -8,6 +8,7 @@ const theme = {
     mainBackground: "#e1e4e8",
     repositoryItemBackground: "white",
     languageTagBackground: "#0366d6",
+    errorColor: "#d73a4a",
   },
   fontSizes: {
     body: 14,
