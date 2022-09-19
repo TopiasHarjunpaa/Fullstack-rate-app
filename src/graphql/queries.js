@@ -20,24 +20,19 @@ export const GET_REPOSITORIES = gql`
   }
 `;
 
-export const GET_USERS = gql`
-  query {
-    users {
-      edges {
-        node {
-          username
-          id
-          createdAt
-        }
-      }
-    }
-  }
-`;
-
 export const AUTHENTICATE = gql`
   mutation authenticateUser($credentials: AuthenticateInput) {
     authenticate(credentials: $credentials) {
       accessToken
+    }
+  }
+`;
+
+export const ME = gql`
+  {
+    me {
+      id
+      username
     }
   }
 `;

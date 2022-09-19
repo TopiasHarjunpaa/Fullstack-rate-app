@@ -9,10 +9,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppBarTab = ({ name, route }) => {
+const AppBarTab = ({ name, route, onPress }) => {
   return (
     <View style={styles.flexItem}>
-      <Link to={route}>
+      <Link to={route} onPress={onPress}>
         <Text color="textSecondary" fontSize="subheading" fontWeight="bold">
           {name}
         </Text>
