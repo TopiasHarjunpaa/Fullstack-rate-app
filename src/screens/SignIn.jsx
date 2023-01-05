@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 import { Formik } from "formik";
-import SignInForm from "./SignInForm";
+import SignInForm from "../components/SignInForm";
 import useSignIn from "../hooks/useSignIn";
 import { useNavigate } from "react-router-native";
 
