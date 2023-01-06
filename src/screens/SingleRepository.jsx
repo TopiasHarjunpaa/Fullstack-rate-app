@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { View, Pressable, StyleSheet, FlatList } from "react-native";
+import * as Linking from "expo-linking";
 import Text from "../components/Text";
 import { useParams } from "react-router-native";
 import RepositoryItem from "../components/RepositoryItem";
@@ -32,14 +33,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   ratingContainer: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
     borderColor: theme.colors.languageTagBackground,
     borderWidth: 3,
-    borderRadius: 20,
+    borderRadius: 25,
     alignItems: "center",
     margin: 10,
-    padding: 5,
+    paddingTop: 10,
   },
 });
 
@@ -47,7 +48,10 @@ const RepositoryInfo = ({ repository }) => {
   return (
     <View>
       <RepositoryItem item={repository} />
-      <Pressable style={styles.button}>
+      <Pressable
+        style={styles.button}
+        onPress={() => Linking.openURL(repository?.url)}
+      >
         <Text
           style={{ textAlign: "center" }}
           color="textSecondary"
@@ -88,9 +92,11 @@ const SingleRepository = () => {
   const ItemSeparator = () => <View style={styles.separator} />;
   const { id } = useParams();
   const { data } = useQuery(GET_REPOSITORY, {
+    fetchPolicy: "cache-and-network",
     variables: { repositoryId: id },
   });
-  const reviewNodes = data
+
+  const reviewNodes = data?.repository?.reviews
     ? data.repository.reviews.edges.map((edge) => edge.node)
     : [];
 

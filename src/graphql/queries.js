@@ -1,8 +1,12 @@
 import { gql } from "@apollo/client";
 
 export const GET_REPOSITORIES = gql`
-  query {
-    repositories {
+  query getRepositories(
+    $orderDirection: OrderDirection
+    $orderBy: AllRepositoriesOrderBy
+  ) {
+    repositories(orderDirection: $orderDirection, orderBy: $orderBy) {
+      totalCount
       edges {
         node {
           id
@@ -32,6 +36,7 @@ export const GET_REPOSITORY = gql`
       description
       language
       ownerAvatarUrl
+      url
       reviews {
         edges {
           node {
@@ -46,6 +51,17 @@ export const GET_REPOSITORY = gql`
           }
         }
       }
+    }
+  }
+`;
+
+export const CREATE_REVIEW = gql`
+  mutation createReview($review: CreateReviewInput) {
+    createReview(review: $review) {
+      repositoryId
+      text
+      rating
+      createdAt
     }
   }
 `;
