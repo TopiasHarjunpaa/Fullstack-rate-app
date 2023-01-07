@@ -28,8 +28,9 @@ const AppBar = () => {
             <AppBarTab name={"Sign out"} route={"/"} onPress={signOut} />
           </View>
         ) : (
-          <View>
+          <View style={{ flexDirection: "row" }}>
             <AppBarTab name={"Sign in"} route={"/signin"} />
+            <AppBarTab name={"Sign up"} route={"/signup"} />
           </View>
         )}
       </ScrollView>
