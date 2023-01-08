@@ -10,8 +10,8 @@ const validationSchema = yup.object().shape({
   repositoryName: yup.string().required("Repository name is required"),
   rating: yup
     .number("Rating needs to be number")
-    .positive("Rating should be positive number")
-    .max(100, "Rating should be less or equal than 100")
+    .min(0, "Rating should be number between 0 and 100")
+    .max(100, "Rating should be number between 0 and 100")
     .required("Rating is required"),
   text: yup.string().required("Review is required"),
 });

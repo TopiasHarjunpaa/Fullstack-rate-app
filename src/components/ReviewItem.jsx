@@ -12,9 +12,12 @@ const styles = StyleSheet.create({
   },
   reviewInfoContainer: {
     margin: 7,
+    width: "80%",
   },
   reviewTextContainer: {
     marginTop: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
   },
   ratingContainer: {
     width: 50,

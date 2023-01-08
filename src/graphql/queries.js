@@ -117,10 +117,17 @@ export const GET_CURRENT_USER = gql`
             createdAt
             repository {
               fullName
+              id
             }
           }
         }
       }
     }
+  }
+`;
+
+export const DELETE_REVIEW = gql`
+  mutation deleteReview($deleteReviewId: ID!) {
+    deleteReview(id: $deleteReviewId)
   }
 `;

@@ -3,7 +3,7 @@ import { GET_CURRENT_USER } from "../graphql/queries";
 import useAuthStorage from "./useAuthStorage";
 
 const useMe = (includeReviews) => {
-  const { data } = useQuery(GET_CURRENT_USER, {
+  const { data, refetch } = useQuery(GET_CURRENT_USER, {
     fetchPolicy: "cache-and-network",
     variables: {
       includeReviews: includeReviews,
@@ -17,7 +17,7 @@ const useMe = (includeReviews) => {
     apolloClient.resetStore();
   };
 
-  return [signOut, data];
+  return [signOut, data, refetch];
 };
 
 export default useMe;
