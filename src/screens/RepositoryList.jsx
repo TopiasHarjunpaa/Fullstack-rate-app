@@ -61,6 +61,8 @@ export class RepositoryListContainer extends React.Component {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={this.renderHeader}
+        onEndReached={this.props.onEndReach}
+        onEndReachedThreshold={0.5}
       />
     );
   }
@@ -93,15 +95,26 @@ const RepositoryList = () => {
     }
   };
 
-  const { repositories } = useRepositories({
+  const { repositories, fetchMore } = useRepositories({
+    first: 6,
     orderDirection: sortOrder.orderDirection,
     orderBy: sortOrder.orderBy,
     searchKeyword: searchKeyword,
   });
 
+  const onEndReach = () => {
+    if (repositories?.pageInfo?.hasNextPage) {
+      console.log("Fetching more");
+      fetchMore();
+    } else {
+      console.log("No more left to fetch");
+    }
+  };
+
   return (
     <RepositoryListContainer
       repositories={repositories}
+      onEndReach={onEndReach}
       selectedValue={selectedValue}
       setSortOrder={handleSetSortOrder}
       keyword={keyword}

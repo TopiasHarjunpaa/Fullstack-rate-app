@@ -8,6 +8,7 @@ import { GET_REPOSITORY } from "../graphql/queries";
 import theme from "../theme";
 import { format } from "date-fns";
 import { parseISO } from "date-fns/esm";
+import useRepository from "../hooks/useRepository";
 
 const styles = StyleSheet.create({
   separator: {
@@ -91,18 +92,27 @@ const ReviewItem = ({ review }) => {
 const SingleRepository = () => {
   const ItemSeparator = () => <View style={styles.separator} />;
   const { id } = useParams();
-  const { data } = useQuery(GET_REPOSITORY, {
-    fetchPolicy: "cache-and-network",
-    variables: { repositoryId: id },
+  const { repository, fetchMore, loading } = useRepository({
+    repositoryId: id,
+    first: 5,
   });
 
-  const reviewNodes = data?.repository?.reviews
-    ? data.repository.reviews.edges.map((edge) => edge.node)
+  const reviewNodes = repository?.reviews
+    ? repository.reviews.edges.map((edge) => edge.node)
     : [];
 
-  if (!data?.repository) {
-    return <Text>Something went wrong...</Text>;
+  if (loading || !repository) {
+    return <Text>Loading...</Text>;
   }
+
+  const onEndReach = () => {
+    if (repository?.reviews?.pageInfo?.hasNextPage) {
+      console.log("Fetching more");
+      fetchMore();
+    } else {
+      console.log("No more left to fetch");
+    }
+  };
 
   return (
     <FlatList
@@ -110,9 +120,9 @@ const SingleRepository = () => {
       renderItem={({ item }) => <ReviewItem review={item} />}
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={({ id }) => id}
-      ListHeaderComponent={() => (
-        <RepositoryInfo repository={data?.repository} />
-      )}
+      ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
