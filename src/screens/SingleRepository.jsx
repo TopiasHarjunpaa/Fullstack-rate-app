@@ -1,14 +1,11 @@
-import { useQuery } from "@apollo/client";
 import { View, Pressable, StyleSheet, FlatList } from "react-native";
 import * as Linking from "expo-linking";
 import Text from "../components/Text";
 import { useParams } from "react-router-native";
 import RepositoryItem from "../components/RepositoryItem";
-import { GET_REPOSITORY } from "../graphql/queries";
-import theme from "../theme";
-import { format } from "date-fns";
-import { parseISO } from "date-fns/esm";
 import useRepository from "../hooks/useRepository";
+import ReviewItem from "../components/ReviewItem";
+import theme from "../theme";
 
 const styles = StyleSheet.create({
   separator: {
@@ -18,30 +15,10 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: theme.colors.languageTagBackground,
     borderWidth: 1,
-    borderRadius: 3,
+    borderRadius: 10,
     padding: 15,
     width: "90%",
-  },
-  reviewContainer: {
-    display: "flex",
-    backgroundColor: theme.colors.repositoryItemBackground,
-    flexDirection: "row",
-  },
-  reviewInfoContainer: {
-    margin: 7,
-  },
-  reviewTextContainer: {
-    marginTop: 10,
-  },
-  ratingContainer: {
-    width: 50,
-    height: 50,
-    borderColor: theme.colors.languageTagBackground,
-    borderWidth: 3,
-    borderRadius: 25,
-    alignItems: "center",
-    margin: 10,
-    paddingTop: 10,
+    alignSelf: "center",
   },
 });
 
@@ -61,30 +38,6 @@ const RepositoryInfo = ({ repository }) => {
           Open in Github
         </Text>
       </Pressable>
-    </View>
-  );
-};
-
-const ReviewItem = ({ review }) => {
-  const time = parseISO(review.createdAt);
-  return (
-    <View style={styles.reviewContainer}>
-      <View style={styles.ratingContainer}>
-        <Text
-          style={{ color: "#0366d6" }}
-          fontSize="subheading"
-          fontWeight="bold"
-        >
-          {review.rating}
-        </Text>
-      </View>
-      <View style={styles.reviewInfoContainer}>
-        <Text fontSize="subheading" fontWeight="bold">
-          {review.user.username}
-        </Text>
-        <Text style={{ color: "grey" }}>{format(time, "dd.MM.yyyy")}</Text>
-        <Text style={styles.reviewTextContainer}>{review.text}</Text>
-      </View>
     </View>
   );
 };
@@ -117,7 +70,9 @@ const SingleRepository = () => {
   return (
     <FlatList
       data={reviewNodes}
-      renderItem={({ item }) => <ReviewItem review={item} />}
+      renderItem={({ item }) => (
+        <ReviewItem review={item} reviewHeader={item?.user?.username} />
+      )}
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={({ id }) => id}
       ListHeaderComponent={() => <RepositoryInfo repository={repository} />}

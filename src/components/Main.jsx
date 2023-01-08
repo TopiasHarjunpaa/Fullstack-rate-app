@@ -9,6 +9,7 @@ import RepositoryList from "../screens/RepositoryList";
 import SingleRepository from "../screens/SingleRepository";
 import CreateReview from "../screens/CreateReview";
 import SignUp from "../screens/SignUp";
+import MyReviews from "../screens/MyReviews";
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +25,8 @@ const Main = () => {
       <AppBar />
       <Routes>
         <Route path="/" element={<RepositoryList />} exact />
-        <Route path="/review" element={<CreateReview />} exact />
+        <Route path="/createreview" element={<CreateReview />} exact />
+        <Route path="/myreviews" element={<MyReviews />} exact />
         <Route path="/signin" element={<SignIn />} exact />
         <Route path="/signup" element={<SignUp />} exact />
         <Route path=":id" element={<SingleRepository />} exact />

@@ -17,14 +17,15 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
-  const [signOut, data] = useMe();
+  const [signOut, data] = useMe(false);
   return (
     <View style={styles.appBar}>
       <ScrollView horizontal>
         <AppBarTab name={"Repositories"} route={"/"} />
         {data?.me ? (
           <View style={{ flexDirection: "row" }}>
-            <AppBarTab name={"Create a review"} route={"/review"} />
+            <AppBarTab name={"Create a review"} route={"/createreview"} />
+            <AppBarTab name={"My reviews"} route={"/myreviews"} />
             <AppBarTab name={"Sign out"} route={"/"} onPress={signOut} />
           </View>
         ) : (

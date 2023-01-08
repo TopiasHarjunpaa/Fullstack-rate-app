@@ -5,7 +5,8 @@ import { Link } from "react-router-native";
 const styles = StyleSheet.create({
   flexItem: {
     flexGrow: 0,
-    padding: 20,
+    paddingHorizontal: 6,
+    paddingVertical: 20,
   },
 });
 
